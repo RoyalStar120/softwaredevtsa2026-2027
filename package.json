@@ -1,0 +1,45 @@
+{
+  "name": "skillbridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SkillBridge - a universal adaptive skills-training platform (TSA Software Development).",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "server": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env server/index.ts",
+    "build": "vite build",
+    "start": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env server/index.ts",
+    "demo": "npm run build && npm run seed && npm start",
+    "seed": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env server/seed.ts --reset",
+    "test": "node --disable-warning=ExperimentalWarning --test \"tests/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@codemirror/commands": "6.8.1",
+    "@codemirror/lang-javascript": "6.2.4",
+    "@codemirror/language": "6.11.2",
+    "@codemirror/state": "6.5.2",
+    "@codemirror/view": "6.38.0",
+    "@fontsource/inter": "5.2.6",
+    "@fontsource/jetbrains-mono": "5.2.6",
+    "@lezer/highlight": "1.2.1",
+    "express": "5.1.0",
+    "lucide-react": "0.525.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-router-dom": "7.6.3"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.3",
+    "@types/node": "24.0.9",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.6",
+    "@vitejs/plugin-react": "4.6.0",
+    "puppeteer-core": "24.11.1",
+    "typescript": "5.8.3",
+    "vite": "7.0.6"
+  }
+}

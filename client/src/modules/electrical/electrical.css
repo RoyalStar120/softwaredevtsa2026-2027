@@ -1,0 +1,604 @@
+/* Electrical module styles (built on theme.css / components.css tokens). */
+
+/* ---------- Layout ---------- */
+.elec-ws {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: calc(100vh - 140px);
+}
+.elec-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.elec-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.elec-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+@media (max-width: 1100px) {
+  .elec-top,
+  .elec-bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Safety banner ---------- */
+.elec-safety {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 8px 14px;
+  border-radius: var(--radius);
+  background: var(--elec-bg);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: var(--text-2);
+  font-size: 0.85rem;
+}
+.elec-safety > svg {
+  width: 18px;
+  height: 18px;
+  color: var(--elec);
+  flex: none;
+}
+
+/* ---------- Schematic panel ---------- */
+.elec-schem-panel {
+  overflow: hidden;
+}
+.elec-head-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--elec);
+}
+.elec-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.elec-pill.is-live {
+  background: rgba(239, 68, 68, 0.18);
+  color: #ff9b8f;
+}
+.elec-pill.is-dead {
+  background: rgba(148, 163, 184, 0.16);
+  color: var(--panel-muted);
+}
+.elec-pill.is-lock {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+.elec-schem-wrap {
+  padding: 6px;
+  background: radial-gradient(ellipse at top, rgba(124, 92, 255, 0.05), transparent 60%), var(--panel);
+}
+.elec-schem-wrap.is-static {
+  padding: 8px;
+}
+.elec-schematic {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+.elec-label {
+  fill: var(--panel-text);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+}
+.elec-sublabel {
+  font-family: var(--font);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  fill: var(--panel-muted);
+}
+.elec-sublabel.is-hot {
+  fill: #fbbf24;
+}
+.elec-sublabel.is-cold {
+  fill: #60a5fa;
+}
+.elec-sublabel.is-on {
+  fill: #6ee7a0;
+}
+.elec-sublabel.is-off {
+  fill: #ff9b8f;
+}
+.elec-polarity {
+  fill: var(--panel-muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+.elec-new {
+  fill: #fff;
+  font-family: var(--font);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+.elec-tp {
+  fill: var(--panel);
+  stroke: #9fb3d9;
+  stroke-width: 1.6;
+  transition: stroke 0.15s, fill 0.15s;
+}
+.elec-node.is-ground .elec-tp {
+  stroke: #94a3b8;
+}
+.elec-tp-label {
+  fill: #b8c6e3;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+.elec-node.is-clickable {
+  cursor: crosshair;
+}
+.elec-node.is-clickable:hover .elec-tp {
+  stroke: var(--elec);
+  fill: #2a2010;
+}
+.elec-probe {
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
+}
+.elec-probe-tag {
+  fill: #fff;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* Components and tools */
+.elec-schematic.is-interactive .elec-comp {
+  cursor: default;
+}
+.elec-schematic.is-interactive .elec-comp.is-control {
+  cursor: pointer;
+}
+.elec-schematic.tool-inspect .elec-comp,
+.elec-schematic.tool-bench .elec-comp.is-usable,
+.elec-schematic.tool-replace .elec-comp.is-usable {
+  cursor: pointer;
+}
+.elec-schematic.tool-bench .elec-comp:not(.is-usable),
+.elec-schematic.tool-replace .elec-comp:not(.is-usable) {
+  cursor: not-allowed;
+}
+.elec-comp.is-hover.is-usable .elec-hit,
+.elec-schematic.tool-probe .elec-comp.is-hover.is-control .elec-hit {
+  stroke: rgba(245, 158, 11, 0.16);
+  fill: rgba(245, 158, 11, 0.08);
+}
+.elec-schematic:not(.tool-probe) .elec-comp.is-hover:not(.is-usable) .elec-label {
+  fill: var(--panel-muted);
+}
+.elec-comp.is-hover .elec-label {
+  fill: #fde68a;
+}
+.elec-toggle-hot {
+  fill: transparent;
+  stroke: transparent;
+  cursor: pointer;
+}
+.elec-toggle-hot:hover {
+  fill: rgba(245, 158, 11, 0.25);
+  stroke: rgba(245, 158, 11, 0.6);
+}
+.elec-lever {
+  transition: all 0.18s ease;
+}
+.elec-fan {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.elec-fan.is-running {
+  animation: elec-spin 0.55s linear infinite;
+}
+.elec-fan.is-slow {
+  animation: elec-spin 2.6s linear infinite;
+}
+.elec-click-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: elec-click 0.7s ease-out forwards;
+}
+.elec-glow {
+  transition: opacity 0.4s ease;
+}
+@keyframes elec-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes elec-click {
+  from {
+    opacity: 0.95;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .elec-fan.is-running,
+  .elec-fan.is-slow,
+  .elec-click-ring,
+  .elec-blink {
+    animation: none;
+  }
+}
+
+/* Loads strip */
+.elec-loads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--panel-border);
+}
+.elec-load {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  border: 1px solid var(--panel-border);
+  font-size: 0.78rem;
+  color: var(--panel-text);
+}
+.elec-load svg {
+  width: 14px;
+  height: 14px;
+}
+.elec-load-level {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+}
+.elec-load.is-on svg,
+.elec-load.is-on .elec-load-level {
+  color: #fbbf24;
+}
+.elec-load.is-partial svg,
+.elec-load.is-partial .elec-load-level {
+  color: #f59e0b;
+  opacity: 0.8;
+}
+.elec-load.is-off svg,
+.elec-load.is-off .elec-load-level {
+  color: var(--panel-muted);
+}
+
+/* ---------- Tools ---------- */
+.elec-tools {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.elec-tools-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.elec-seg-icon {
+  width: 13px;
+  height: 13px;
+}
+
+/* ---------- Multimeter ---------- */
+.elec-meter-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.elec-lcd {
+  border-radius: 10px;
+  padding: 8px 12px 6px;
+  background: linear-gradient(180deg, #0b1f14, #06140c);
+  border: 1px solid #1c3b28;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.6);
+  color: #7dffa8;
+  font-family: var(--mono);
+}
+.elec-lcd.is-idle {
+  color: #3f8f5c;
+}
+.elec-lcd.is-volt {
+  color: #ff5c5c;
+  border-color: #5c1c1c;
+  background: linear-gradient(180deg, #210b0b, #150606);
+}
+.elec-lcd-top,
+.elec-lcd-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+  min-height: 16px;
+}
+.elec-lcd-icons {
+  display: inline-flex;
+  gap: 6px;
+}
+.elec-lcd-icons svg {
+  width: 14px;
+  height: 14px;
+}
+.elec-lcd-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 8px;
+  min-height: 52px;
+}
+.elec-lcd-value {
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 10px currentColor;
+}
+.elec-lcd-unit {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.elec-blink {
+  animation: elec-blink-kf 0.7s steps(2, start) infinite;
+}
+@keyframes elec-blink-kf {
+  to {
+    visibility: hidden;
+  }
+}
+.elec-dial {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.elec-dial-btn {
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel-2);
+  color: var(--panel-text);
+  font-family: var(--mono);
+  font-weight: 700;
+  cursor: pointer;
+}
+.elec-dial-btn.is-on {
+  background: rgba(245, 158, 11, 0.16);
+  border-color: var(--elec);
+  color: #fde68a;
+}
+.elec-probes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.elec-probe-slot {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel-2);
+}
+.elec-probe-slot.is-active {
+  border-color: var(--elec);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.18);
+}
+.elec-probe-pick {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  align-items: center;
+  padding: 6px 8px;
+  background: transparent;
+  border: 0;
+  color: var(--panel-text);
+  text-align: left;
+  cursor: pointer;
+}
+.elec-probe-dot {
+  grid-row: span 2;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.elec-probe-slot.is-red .elec-probe-dot {
+  background: #ff4d4f;
+}
+.elec-probe-slot.is-black .elec-probe-dot {
+  background: #1e293b;
+  border: 2px solid #cbd5e1;
+}
+.elec-probe-name {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--panel-muted);
+}
+.elec-probe-node {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+.elec-probe-slot .btn-ghost {
+  color: var(--panel-muted);
+}
+
+/* ---------- Controls ---------- */
+.elec-ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.elec-ctrl-name {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.elec-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 96px;
+  height: 30px;
+  padding: 0 10px 0 4px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-weight: 700;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.elec-toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.elec-toggle-knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-strong);
+}
+.elec-toggle.is-on {
+  background: var(--success-bg);
+  border-color: transparent;
+  color: var(--success);
+}
+.elec-toggle.is-on .elec-toggle-knob,
+.elec-toggle.is-hot .elec-toggle-knob {
+  order: 2;
+  margin-left: auto;
+}
+.elec-toggle.is-hot {
+  background: var(--elec-bg);
+  border-color: transparent;
+  color: #a15c00;
+}
+
+/* ---------- Work log ---------- */
+.elec-log-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 340px;
+  overflow: auto;
+}
+.elec-log-row {
+  display: flex;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.86rem;
+}
+.elec-log-row:last-child {
+  border-bottom: 0;
+}
+.elec-log-time {
+  flex: none;
+  width: 44px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  padding-top: 1px;
+}
+.elec-log-desc.mono {
+  font-size: 0.8rem;
+}
+.elec-log-msg {
+  font-size: 0.8rem;
+  margin-top: 2px;
+  font-weight: 600;
+}
+.elec-log-msg.is-danger {
+  color: var(--danger);
+}
+.elec-log-msg.is-warning {
+  color: var(--warning);
+}
+.elec-log-msg.is-success {
+  color: var(--success);
+}
+.elec-log-msg.is-info {
+  color: var(--info);
+}
+
+/* ---------- Diagnosis ---------- */
+.elec-diag-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 6px;
+}
+.elec-diag-row .select {
+  height: 34px;
+  font-size: 0.85rem;
+}
+.elec-recorded ul {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  font-size: 0.86rem;
+}
+.elec-complete {
+  --btn-bg: var(--elec);
+  --btn-border: var(--elec);
+  --btn-fg: #1b1305;
+}
+.elec-complete:hover {
+  background: #e08e06;
+}
+.elec-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  font-size: 0.88rem;
+}
+@media (max-width: 520px) {
+  .elec-summary,
+  .elec-probes {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Debrief ---------- */
+.elec-fault + .elec-fault {
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.elec-expert {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.9rem;
+}
+.elec-expert li + li {
+  margin-top: 6px;
+}
