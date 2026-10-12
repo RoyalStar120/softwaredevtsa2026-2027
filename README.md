@@ -88,10 +88,12 @@ client/src/
 ## Testing
 
 ```bash
-npm test             # unit + integration tests (node:test)
+npm test             # 74 unit + integration tests (node:test)
 npm run typecheck    # TypeScript
 node scripts/verify.mjs http://localhost:3000   # API smoke test + headless Chrome screenshots
 ```
+
+The tests cover the learner model, mistake patterns, adaptive engine, scoring caps, achievements, coach grounding, and both modules: circuit physics, hidden-answer safety, safety detection, hypothesis tracking, bug templates, and simulated expert vs. careless learners. `verify.mjs` creates attempts for the demo learner, so run `npm run seed` afterwards (or point it at a throwaway server started with `SKILLBRIDGE_DB=data/verify.db PORT=3100 npm start`).
 
 ## Measuring effectiveness (not just "does it work")
 

@@ -4,6 +4,8 @@ data/*.db
 data/*.db-*
 data/logs/
 .env
+.env.*
+!.env.example
 *.log
 .DS_Store
 screenshots/
